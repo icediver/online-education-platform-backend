@@ -43,9 +43,7 @@ export class UserService {
 
     await this.userRepository.save(user);
 
-    const { password, ...userWithoutPassword } = user;
-
-    return userWithoutPassword;
+    return user;
   }
 
   async getCount() {

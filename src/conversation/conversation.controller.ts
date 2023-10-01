@@ -27,10 +27,7 @@ export class ConversationController {
   @HttpCode(200)
   @Post()
   @Auth()
-  async createConversation(
-    @Body() { withUserId }: ConversationDto,
-    @CurrentUser('id') currentUserId: number
-  ) {
-    return this.conversationService.create(currentUserId, withUserId);
+  async createConversation(@CurrentUser('id') currentUserId: number) {
+    return this.conversationService.create(currentUserId);
   }
 }

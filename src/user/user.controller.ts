@@ -22,8 +22,7 @@ export class UserController {
   @Get('profile')
   @Auth()
   async getProfile(@User('id') id: number) {
-    const { password, ...user } = await this.userService.byId(id);
-    return user;
+    return this.userService.byId(id);
   }
 
   @UsePipes(new ValidationPipe())

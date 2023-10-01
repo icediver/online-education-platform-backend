@@ -42,7 +42,7 @@ export class MessageController {
   @Auth()
   async getByUserId(
     @Param('userToId') userToId: number,
-    @CurrentUser('id') userFromId
+    @CurrentUser('id') userFromId: number
   ) {
     return this.messageService.byUserToId(userFromId, userToId);
   }

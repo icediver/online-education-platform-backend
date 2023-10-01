@@ -15,13 +15,9 @@ export class MessageService {
   ) {}
 
   //--------------------Create--------------------//
-  async create(
-    userId: number,
-    { userToId, text, conversationId }: CreateMessageDto
-  ) {
-    const newMessage = await this.messageRepository.create({
+  async create(userId: number, { text, conversationId }: CreateMessageDto) {
+    const newMessage = this.messageRepository.create({
       userFrom: { id: userId },
-      userTo: { id: userToId },
       text: text
     });
 
@@ -86,9 +82,7 @@ export class MessageService {
 
     if (!conversation) throw new NotFoundException('Диалог не найден!');
 
-    conversation.messages = await conversation.messages.filter(
-      msg => msg.id !== id
-    );
+    conversation.messages = conversation.messages.filter(msg => msg.id !== id);
 
     const newConversation = await this.conversationRepository.save(
       conversation

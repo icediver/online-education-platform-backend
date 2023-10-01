@@ -55,7 +55,7 @@ export class AuthService {
         'User with this email is already in the system'
       );
     const salt = await genSalt(10);
-    const newUser = await this.userRepository.create({
+    const newUser = this.userRepository.create({
       email: dto.email,
       password: await hash(dto.password, salt),
       name: dto.email,
@@ -76,7 +76,7 @@ export class AuthService {
       where: {
         email: dto.email
       },
-      select: ['id', 'email', 'password', 'avatarPath', 'name']
+      select: ['id', 'email', 'password', 'avatarPath', 'name', 'position']
     });
 
     if (!user) throw new NotFoundException('User not found!');
@@ -105,7 +105,8 @@ export class AuthService {
       email: user.email,
       avatarPath: user.avatarPath,
       name: user.name,
-      isAdmin: user.isAdmin
+      isAdmin: user.isAdmin,
+      position: user.position
     };
   }
 }

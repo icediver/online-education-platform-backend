@@ -7,10 +7,10 @@ export class CreateMessageDto {
   @IsNumber()
   @IsOptional()
   userFromId: number;
-
-  @IsNumber()
-  userToId: number;
-
+  //
+  // @IsNumber()
+  // userToId: number;
+  //
   @IsNumber()
   conversationId: number;
 }

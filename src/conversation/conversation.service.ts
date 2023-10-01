@@ -17,23 +17,16 @@ export class ConversationService {
   async byId(id: number) {
     return this.conversationRepository.findOne({
       where: { id },
-      relations: { messages: { userTo: true, userFrom: true } }
+      relations: { messages: { userFrom: true } }
     });
   }
 
   //--------------------Create--------------------//
-  async create(currentUserId: number, withUserId: number) {
+  async create(currentUserId: number) {
     const message = await this.messageRepository.findOne({
-      where: [
-        {
-          userFrom: { id: currentUserId },
-          userTo: { id: withUserId }
-        },
-        {
-          userTo: { id: currentUserId },
-          userFrom: { id: withUserId }
-        }
-      ],
+      where: {
+        userFrom: { id: currentUserId }
+      },
       relations: { conversation: true }
     });
 
