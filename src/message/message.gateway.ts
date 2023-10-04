@@ -22,10 +22,10 @@ export class MessageGateway {
   server: Server;
 
   @SubscribeMessage('message:get')
-  async getConversation(@MessageBody('conversationId') conversationId: number) {
-    if (!conversationId) return;
-    const conversation = await this.conversationService.byId(conversationId);
-    this.server.to(String(conversationId)).emit('conversation', conversation);
+  async getConversation(@MessageBody('chatRoomId') chatRoomId: number) {
+    if (!chatRoomId) return;
+    const chatRoom = await this.conversationService.byId(chatRoomId);
+    this.server.to(String(chatRoomId)).emit('chatRoom', chatRoom);
   }
 
   @SubscribeMessage('message:add')
@@ -37,20 +37,20 @@ export class MessageGateway {
   @SubscribeMessage('joinRoom')
   async handleRoomJoin(
     @ConnectedSocket() client: Socket,
-    @MessageBody('conversationId') conversationId: number
+    @MessageBody('chatRoomId') chatRoomId: number
   ) {
-    client.join(String(conversationId));
-    client.emit('joinedRoom', conversationId);
-    await this.getConversation(conversationId);
+    client.join(String(chatRoomId));
+    client.emit('joinedRoom', chatRoomId);
+    await this.getConversation(chatRoomId);
   }
 
   @SubscribeMessage('leaveRoom')
   handleRoomLeave(
     @ConnectedSocket() client: Socket,
-    @MessageBody('conversationId') conversationId: string
+    @MessageBody('chatRoomId') chatRoomId: string
   ) {
-    client.leave(conversationId);
-    client.emit('leftRoom', conversationId);
+    client.leave(chatRoomId);
+    client.emit('leftRoom', chatRoomId);
   }
 
   @SubscribeMessage('message:delete')

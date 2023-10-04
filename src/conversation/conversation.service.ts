@@ -15,10 +15,12 @@ export class ConversationService {
 
   //--------------------Read----------------------//
   async byId(id: number) {
-    return this.conversationRepository.findOne({
+    const conversation = await this.conversationRepository.findOne({
       where: { id },
-      relations: { messages: { userFrom: true } }
+      relations: { messages: { userFrom: true } },
+      order: { messages: { createdAt: 'ASC' } }
     });
+    return conversation;
   }
 
   //--------------------Create--------------------//

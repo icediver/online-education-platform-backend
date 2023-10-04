@@ -5,8 +5,10 @@ import { Base } from '../../utils/base';
 
 @Entity('Message')
 export class MessageEntity extends Base {
-  @Column()
-  text: string;
+  @Column({ default: '' })
+  text?: string;
+  @Column({ default: '' })
+  image?: string;
 
   @ManyToOne(() => UserEntity)
   @JoinColumn({ name: 'user_from' })

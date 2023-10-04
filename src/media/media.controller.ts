@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Auth } from 'src/auth/decorators/auth.decorator';
+import { User as CurrentUser } from 'src/user/decorators/user.decorator';
 import { MediaService } from './media.service';
 
 @Controller('media')
@@ -19,12 +20,10 @@ export class MediaController {
   @Auth()
   @UseInterceptors(FileInterceptor('image'))
   async uploadsMediaFile(
+    @CurrentUser('id') userId: number,
     @UploadedFile() mediaFile: Express.Multer.File,
     @Query('folder') folder?: string
   ) {
-    console.log(mediaFile, folder);
-    console.log('nne');
-
-    return this.mediaService.saveMedia(mediaFile, folder);
+    return this.mediaService.saveMedia(mediaFile, folder, userId);
   }
 }

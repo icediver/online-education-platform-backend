@@ -15,10 +15,14 @@ export class MessageService {
   ) {}
 
   //--------------------Create--------------------//
-  async create(userId: number, { text, conversationId }: CreateMessageDto) {
+  async create(
+    userId: number,
+    { text, conversationId, image }: CreateMessageDto
+  ) {
     const newMessage = this.messageRepository.create({
       userFrom: { id: userId },
-      text: text
+      text: text,
+      image: image
     });
 
     const message = await this.messageRepository.save(newMessage);
@@ -84,9 +88,8 @@ export class MessageService {
 
     conversation.messages = conversation.messages.filter(msg => msg.id !== id);
 
-    const newConversation = await this.conversationRepository.save(
-      conversation
-    );
+    const newConversation =
+      await this.conversationRepository.save(conversation);
 
     return newConversation;
   }
