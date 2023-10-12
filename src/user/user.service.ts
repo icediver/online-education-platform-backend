@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { genSalt, hash } from 'bcryptjs';
-import { Repository } from 'typeorm';
+import { ILike, Like, Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './user.entity';
 
@@ -57,8 +57,8 @@ export class UserService {
       options = {
         email: new RegExp(searchTerm, 'i')
       };
-    return this.userRepository.find({
-      where: { ...options },
+    const users = await this.userRepository.find({
+      where: { email: ILike(`%${searchTerm}%`) },
       order: {
         name: 'DESC'
       },
@@ -71,6 +71,7 @@ export class UserService {
         avatarPath: true
       }
     });
+    return users;
   }
 
   async delete(id: number) {

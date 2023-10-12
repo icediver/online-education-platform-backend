@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   Get,
   HttpCode,
@@ -9,9 +8,7 @@ import {
   ValidationPipe
 } from '@nestjs/common';
 import { Auth } from '../auth/decorators/auth.decorator';
-import { User as CurrentUser } from '../user/decorators/user.decorator';
 import { ConversationService } from './conversation.service';
-import { ConversationDto } from './dto/conversation.dto';
 
 @Controller('conversation')
 export class ConversationController {
@@ -26,8 +23,8 @@ export class ConversationController {
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
   @Post()
-  @Auth()
-  async createConversation(@CurrentUser('id') currentUserId: number) {
-    return this.conversationService.create(currentUserId);
+  @Auth('admin')
+  async createConversation() {
+    return this.conversationService.create();
   }
 }

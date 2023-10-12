@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { VideoEntity } from 'src/video/entities/video.entity';
 import { Repository } from 'typeorm';
 import { MessageEntity } from '../message/entities/message.entity';
 import { ConversationEntity } from './entities/conversation.entity';
@@ -24,21 +25,20 @@ export class ConversationService {
   }
 
   //--------------------Create--------------------//
-  async create(currentUserId: number) {
-    const message = await this.messageRepository.findOne({
-      where: {
-        userFrom: { id: currentUserId }
-      },
-      relations: { conversation: true }
-    });
-
-    if (message) {
-      return this.conversationRepository.findOne({
-        where: { id: message.conversation.id },
-        relations: { messages: true }
-      });
-    }
-
+  async create() {
+    // const message = await this.messageRepository.findOne({
+    //   where: {
+    //     userFrom: { id: currentUserId }
+    //   },
+    //   relations: { conversation: true }
+    // });
+    //
+    // if (message) {
+    //   return this.conversationRepository.findOne({
+    //     where: { id: message.conversation.id },
+    //     relations: { messages: true }
+    //   });
+    // }
     const conversation = this.conversationRepository.create({
       messages: []
     });

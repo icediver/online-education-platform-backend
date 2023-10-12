@@ -48,7 +48,7 @@ export class UserController {
   }
 
   @Get()
-  @Auth('admin')
+  @Auth()
   async getUsers(@Query('SearchTerm') searchTerm?: string) {
     return this.userService.getAll(searchTerm);
   }

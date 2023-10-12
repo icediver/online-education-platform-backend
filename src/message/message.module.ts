@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { VideoEntity } from 'src/video/entities/video.entity';
 import { ConversationService } from '../conversation/conversation.service';
 import { ConversationEntity } from '../conversation/entities/conversation.entity';
 import { MessageEntity } from './entities/message.entity';
