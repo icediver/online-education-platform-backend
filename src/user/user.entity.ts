@@ -15,4 +15,10 @@ export class UserEntity extends Base {
   avatarPath: string;
   @Column({ default: 'student' })
   position: string;
+  @Column({ default: 1 })
+  year?: number;
+  @Column({ default: 1 })
+  semester?: number;
+  @Column({ default: '' })
+  department?: string;
 }

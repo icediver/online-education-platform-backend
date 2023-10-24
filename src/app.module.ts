@@ -10,6 +10,7 @@ import { UserModule } from './user/user.module';
 import { MessageModule } from './message/message.module';
 import { ConversationModule } from './conversation/conversation.module';
 import { VideoModule } from './video/video.module';
+import { ExamModule } from './exam/exam.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { VideoModule } from './video/video.module';
     MediaModule,
     MessageModule,
     ConversationModule,
-    VideoModule
+    VideoModule,
+    ExamModule
   ],
   controllers: [AppController],
   providers: [AppService]

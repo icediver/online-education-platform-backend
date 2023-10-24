@@ -1,4 +1,10 @@
-import { IsBoolean, IsEmail, IsOptional, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsNumber,
+  IsOptional,
+  IsString
+} from 'class-validator';
 
 export class UpdateUserDto {
   @IsEmail()
@@ -25,4 +31,12 @@ export class UpdateUserDto {
   @IsString()
   @IsOptional()
   position?: string = 'student';
+
+  @IsOptional()
+  @IsNumber()
+  year: number;
+
+  @IsOptional()
+  @IsNumber()
+  semester: number;
 }

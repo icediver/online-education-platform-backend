@@ -50,17 +50,19 @@ export class UserService {
     return this.userRepository.count();
   }
 
-  async getAll(searchTerm?: string) {
-    let options = {};
+  async getAll(searchTerm?: string, department?: string) {
+    console.log(searchTerm, 'searchTerm');
+    if (!searchTerm) searchTerm = '';
 
-    if (searchTerm)
-      options = {
-        email: new RegExp(searchTerm, 'i')
-      };
+    const searchOptions = {
+      email: ILike(`%${searchTerm}%`),
+      department
+    };
     const users = await this.userRepository.find({
-      where: { email: ILike(`%${searchTerm}%`) },
+      where: searchOptions,
+
       order: {
-        name: 'DESC'
+        id: 'ASC'
       },
       select: {
         id: true,
@@ -68,7 +70,10 @@ export class UserService {
         email: true,
         name: true,
         isAdmin: true,
-        avatarPath: true
+        avatarPath: true,
+        semester: true,
+        year: true,
+        department: true
       }
     });
     return users;

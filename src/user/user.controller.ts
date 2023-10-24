@@ -48,9 +48,12 @@ export class UserController {
   }
 
   @Get()
-  @Auth()
-  async getUsers(@Query('SearchTerm') searchTerm?: string) {
-    return this.userService.getAll(searchTerm);
+  // @Auth()
+  async getUsers(
+    @Query('searchTerm') searchTerm?: string,
+    @Query('department') department?: string
+  ) {
+    return this.userService.getAll(searchTerm, department);
   }
 
   @Get(':id')
