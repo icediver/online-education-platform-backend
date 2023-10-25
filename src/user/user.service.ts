@@ -51,7 +51,6 @@ export class UserService {
   }
 
   async getAll(searchTerm?: string, department?: string) {
-    console.log(searchTerm, 'searchTerm');
     if (!searchTerm) searchTerm = '';
 
     const searchOptions = {

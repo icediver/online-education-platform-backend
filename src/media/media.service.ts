@@ -9,7 +9,6 @@ export class MediaService {
     folder = 'media',
     userId: number
   ): Promise<IMediaResponse> {
-    // console.log(mediaFile.mimetype, mediaFile.originalname);
     // if (mediaFile.mimetype.indexOf('image') < 0)
     //   throw new HttpException('File must be image', HttpStatus.FORBIDDEN);
     //
